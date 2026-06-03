@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIOVANI STUDIO | Graphiste & Développeur Web</title>
+    <!-- Tailwind CSS pour un design rapide, fluide et moderne -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins pour les titres & DM Sans pour la lisibilité -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome pour les icônes premium -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#009deb',
+                            red: '#e30613',
+                            yellow: '#fff100',
+                            darkBg: '#09090b',
+                            darkCard: '#121217',
+                            darkBorder: '#23232c'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #09090b;
+            color: #e4e4e7;
+            overflow-x: hidden;
+        }
+
+        /* Effets de halos lumineux d'arrière-plan */
+        .glowing-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.12;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Transition personnalisée pour le comparateur de design */
+        .slider-handle {
+            cursor: ew-resize;
+        }
+        
+        .no-select {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- NAV BARRE FIXE ET TRANSLUCIDE (Glassmorphism) -->
+    <nav class="sticky top-0 z-50 backdrop-blur-md bg-brand-darkBg/80 border-b border-brand-darkBorder/60 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Logo SVG personnalisé basé sur la version Silhouette et colorisée -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 relative flex items-center justify-center bg-zinc-900 rounded-lg border border-zinc-800">
+                    <!-- SVG recréant fidèlement le logo DV hybride de Diovani -->
+                    <svg viewBox="0 0 100 100" class="w-8 h-8">
+                        <!-- Lettre D (Bleue) -->
+                        <path d="M20,25 C45,25 45,75 20,75 Z" fill="none" stroke="#009deb" stroke-width="10" stroke-linecap="round"/>
+                        <!-- Lettre V (Rouge) -->
+                        <path d="M55,25 L70,75 L85,25" fill="none" stroke="#e30613" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        <!-- Plume Stylisée (Jaune) -->
+                        <path d="M45,45 L55,45 L50,60 Z" fill="#fff100"/>
+                        <!-- Balises < > -->
+                        <path d="M38,40 L30,50 L38,60" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+                        <path d="M62,40 L70,50 L62,60" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-display font-bold text-xl text-white tracking-wide block leading-none group-hover:text-brand-blue transition-colors">DIOVANI</span>
+                    <span class="text-[10px] text-zinc-500 font-semibold uppercase tracking-widest block mt-0.5">STUDIO</span>
+                </div>
+            </a>
+
+            <!-- Liens de navigation bureau -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#services" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Services</a>
+                <a href="#experience" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Double Casquette</a>
+                <a href="#portfolio" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Projets</a>
+                <a href="#contact" class="px-5 py-2.5 rounded-lg text-sm font-semibold bg-white text-black hover:bg-brand-blue hover:text-white transition-all duration-300">Me Contacter</a>
+            </div>
+
+            <!-- Bouton Menu Mobile -->
+            <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Menu Mobile (Déroulant) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-darkBg border-b border-brand-darkBorder px-6 py-4 flex flex-col gap-4">
+            <a href="#services" class="text-zinc-400 hover:text-white font-medium py-2">Services</a>
+            <a href="#experience" class="text-zinc-400 hover:text-white font-medium py-2">Double Casquette</a>
+            <a href="#portfolio" class="text-zinc-400 hover:text-white font-medium py-2">Projets</a>
+            <a href="#contact" class="w-full text-center py-3 rounded-lg font-semibold bg-white text-black block">Me Contacter</a>
+        </div>
+    </nav>
+
+    <!-- ACCUEIL / HERO SECTION -->
+    <header class="relative min-h-[calc(100vh-80px)] flex items-center justify-center px-6 py-20 overflow-hidden">
+        <!-- Blobs lumineux colorés en arrière-plan -->
+        <div class="glowing-blob bg-brand-blue w-[400px] h-[400px] top-1/4 -left-40"></div>
+        <div class="glowing-blob bg-brand-red w-[450px] h-[450px] bottom-10 -right-40"></div>
+        <div class="glowing-blob bg-brand-yellow w-[300px] h-[300px] top-1/3 left-1/3 opacity-5"></div>
+
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <!-- Badge Concept -->
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-semibold text-zinc-300 mb-8">
+                <span class="flex h-2 w-2 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                Disponible pour de nouveaux projets
+            </div>
+
+            <!-- Titre d'impact principal -->
+            <h1 class="font-display font-extrabold text-4xl sm:text-6xl md:text-7xl tracking-tight text-white leading-tight mb-8">
+                Je dessine votre identité,<br>
+                <span class="bg-gradient-to-r from-brand-blue via-brand-red to-brand-yellow bg-clip-text text-transparent">
+                    je code votre site.
+                </span>
+            </h1>
+
+            <p class="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto mb-12 leading-relaxed">
+                Interlocuteur unique de l'idée à la mise en ligne. En tant que <strong class="text-white font-semibold">Graphiste UI/UX</strong> et <strong class="text-white font-semibold">Développeur Web</strong>, je crée des expériences numériques fluides, esthétiques et sur-mesure.
+            </p>
+
+            <!-- Boutons d'action -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#portfolio" class="w-full sm:w-auto px-8 py-4 rounded-xl text-base font-semibold bg-white text-black hover:bg-brand-blue hover:text-white transition-all duration-300 shadow-lg hover:shadow-brand-blue/25 flex items-center justify-center gap-2">
+                    Voir mes réalisations <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+                <a href="#experience" class="w-full sm:w-auto px-8 py-4 rounded-xl text-base font-semibold bg-zinc-900 border border-zinc-800 text-white hover:bg-zinc-800 transition-colors flex items-center justify-center gap-2">
+                    Découvrir ma méthode
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION SERVICES -->
+    <section id="services" class="py-24 bg-brand-darkBg border-t border-brand-darkBorder/40 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="text-center max-w-2xl mx-auto mb-20">
+                <h2 class="font-display font-bold text-3xl md:text-4xl text-white mb-4">Mes Services</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-brand-blue to-brand-red mx-auto rounded-full mb-6"></div>
+                <p class="text-zinc-400">Une offre combinée pour éliminer les pertes de communication entre la phase de conception et de production.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1: Brand Design -->
+                <div class="p-8 rounded-2xl bg-brand-darkCard border border-brand-darkBorder hover:border-brand-blue/40 transition-all duration-300 group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue text-xl mb-6 group-hover:bg-brand-blue group-hover:text-black transition-colors">
+                        <i class="fa-solid fa-pen-nib"></i>
+                    </div>
+                    <h3 class="font-display font-semibold text-xl text-white mb-4">Identité Visuelle & Logo</h3>
+                    <p class="text-zinc-400 leading-relaxed mb-6">
+                        Création de logotypes mémorables, typographies, palettes de couleurs cohérentes et chartes graphiques complètes pour affirmer votre marque en ligne et sur papier.
+                    </p>
+                    <ul class="text-sm text-zinc-500 space-y-2">
+                        <li><i class="fa-solid fa-check text-brand-blue mr-2"></i> Logotype vectoriel haute définition</li>
+                        <li><i class="fa-solid fa-check text-brand-blue mr-2"></i> Charte graphique & Directives</li>
+                        <li><i class="fa-solid fa-check text-brand-blue mr-2"></i> Cartes de visite & Papeterie</li>
+                    </ul>
+                </div>
+
+                <!-- Service 2: UI/UX Design -->
+                <div class="p-8 rounded-2xl bg-brand-darkCard border border-brand-darkBorder hover:border-brand-yellow/40 transition-all duration-300 group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-yellow/10 flex items-center justify-center text-brand-yellow text-xl mb-6 group-hover:bg-brand-yellow group-hover:text-black transition-colors">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h3 class="font-display font-semibold text-xl text-white mb-4">Design d'Interface UI/UX</h3>
+                    <p class="text-zinc-400 leading-relaxed mb-6">
+                        Conception de maquettes d'applications et de sites internet pensés pour convertir. Des interfaces épurées, intuitives et adaptées aux comportements mobiles.
+                    </p>
+                    <ul class="text-sm text-zinc-500 space-y-2">
+                        <li><i class="fa-solid fa-check text-brand-yellow mr-2"></i> Maquettes interactives sur Figma</li>
+                        <li><i class="fa-solid fa-check text-brand-yellow mr-2"></i> Recherche utilisateur & Wireframes</li>
+                        <li><i class="fa-solid fa-check text-brand-yellow mr-2"></i> Design adapté mobile & tablette</li>
+                    </ul>
+                </div>
+
+                <!-- Service 3: Dev Web -->
+                <div class="p-8 rounded-2xl bg-brand-darkCard border border-brand-darkBorder hover:border-brand-red/40 transition-all duration-300 group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-red/10 flex items-center justify-center text-brand-red text-xl mb-6 group-hover:bg-brand-red group-hover:text-black transition-colors">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <h3 class="font-display font-semibold text-xl text-white mb-4">Développement Web</h3>
+                    <p class="text-zinc-400 leading-relaxed mb-6">
+                        Intégration et développement de votre site web avec un code propre, ultra-rapide et optimisé pour le référencement (SEO). Aucune mauvaise surprise graphique.
+                    </p>
+                    <ul class="text-sm text-zinc-500 space-y-2">
+                        <li><i class="fa-solid fa-check text-brand-red mr-2"></i> Sites vitrines performants (React/Tailwind)</li>
+                        <li><i class="fa-solid fa-check text-brand-red mr-2"></i> Animations élégantes et interactives</li>
+                        <li><i class="fa-solid fa-check text-brand-red mr-2"></i> Hébergement, SEO & Nom de domaine</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION INTERACTIVE : FIGMA VS CODE (DÉMONSTRATION COMPÉTENCE) -->
+    <section id="experience" class="py-24 bg-zinc-950 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Texte explicatif -->
+                <div class="lg:col-span-5">
+                    <span class="text-brand-blue font-semibold uppercase tracking-wider text-sm block mb-3">La Force de l'Hybride</span>
+                    <h2 class="font-display font-bold text-3xl md:text-4xl text-white mb-6 leading-tight">De la maquette Figma au code pixel-près</h2>
+                    <p class="text-zinc-400 mb-6 leading-relaxed">
+                        Le problème habituel ? Le développeur ne respecte pas fidèlement les détails du designer graphique. 
+                    </p>
+                    <p class="text-zinc-400 mb-8 leading-relaxed">
+                        Chez <strong class="text-white font-semibold">DIOVANI STUDIO</strong>, le fossé n'existe pas. Je développe mon propre design. Faites glisser le curseur ci-contre pour apprécier la fidélité de l'intégration finale.
+                    </p>
+                    
+                    <!-- Liste des outils -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 rounded-xl bg-brand-darkCard border border-brand-darkBorder">
+                            <span class="text-xs text-brand-yellow font-bold uppercase tracking-wider block mb-2">Côté Design</span>
+                            <span class="text-white text-sm font-medium"><i class="fa-brands fa-figma text-lg mr-2 text-brand-blue"></i> Figma</span>
+                        </div>
+                        <div class="p-4 rounded-xl bg-brand-darkCard border border-brand-darkBorder">
+                            <span class="text-xs text-brand-blue font-bold uppercase tracking-wider block mb-2">Côté Intégration</span>
+                            <span class="text-white text-sm font-medium"><i class="fa-brands fa-js text-lg mr-2 text-brand-yellow"></i> HTML/Tailwind/JS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparateur Interactif CSS/JS -->
+                <div class="lg:col-span-7">
+                    <div class="relative w-full h-[380px] rounded-2xl overflow-hidden border border-brand-darkBorder bg-brand-darkBg select-none no-select shadow-2xl" id="slider-container">
+                        
+                        <!-- Côté Gauche : "Le Code intégré" (HTML/CSS fonctionnel représenté) -->
+                        <div class="absolute inset-0 bg-zinc-900 flex items-center justify-center p-8">
+                            <div class="w-full max-w-sm rounded-xl bg-brand-darkCard border-2 border-brand-blue p-6 shadow-xl relative">
+                                <div class="absolute top-3 right-3 text-[10px] uppercase font-bold tracking-widest text-brand-blue bg-brand-blue/10 px-2 py-0.5 rounded border border-brand-blue/30">HTML Codé</div>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div class="w-10 h-10 rounded-full bg-brand-blue/20 flex items-center justify-center text-brand-blue font-bold">DV</div>
+                                    <div>
+                                        <h4 class="font-display font-semibold text-white leading-none">Studio Diovani</h4>
+                                        <span class="text-xs text-zinc-500">Intégration Finale</span>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-zinc-300 mb-6">Ce composant réagit parfaitement aux directives du code et s'adapte à tous les écrans du premier coup.</p>
+                                <button class="w-full py-2 bg-brand-blue hover:bg-brand-blue/90 text-black font-semibold text-sm rounded-lg transition-all shadow-md">Bouton Actif</button>
+                            </div>
+                        </div>
+
+                        <!-- Côté Droit : "La Maquette Vectorielle" (Même card avec guides d'alignement vectoriels Figma) -->
+                        <div class="absolute inset-y-0 right-0 left-0 bg-zinc-950 flex items-center justify-center p-8 overflow-hidden" id="design-layer" style="clip-path: inset(0 0 0 50%);">
+                            <!-- Même Card simulée en mode outil de design vectoriel -->
+                            <div class="w-full max-w-sm rounded-xl bg-brand-darkCard border border-dashed border-brand-yellow p-6 relative">
+                                <div class="absolute top-3 right-3 text-[10px] uppercase font-bold tracking-widest text-brand-yellow bg-brand-yellow/10 px-2 py-0.5 rounded border border-brand-yellow/30">Figma UI</div>
+                                
+                                <!-- Guides de design Figma dessinés par dessus -->
+                                <div class="absolute top-0 left-12 h-full w-[1px] bg-brand-yellow/30"></div>
+                                <div class="absolute top-20 left-0 w-full h-[1px] bg-brand-yellow/30"></div>
+                                <span class="absolute top-14 left-14 text-[9px] font-mono text-brand-yellow bg-zinc-950 px-1 rounded">w: 380px</span>
+
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div class="w-10 h-10 rounded-full bg-brand-yellow/20 flex items-center justify-center text-brand-yellow font-bold border border-brand-yellow">DV</div>
+                                    <div>
+                                        <h4 class="font-display font-semibold text-zinc-400 leading-none">Studio Diovani</h4>
+                                        <span class="text-xs text-zinc-600">Wireframe Vectoriel</span>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-zinc-500 mb-6">Ce composant réagit parfaitement aux directives du code et s'adapte à tous les écrans du premier coup.</p>
+                                <button class="w-full py-2 bg-zinc-800 border border-brand-yellow text-brand-yellow font-semibold text-sm rounded-lg">Figma Object</button>
+                            </div>
+                        </div>
+
+                        <!-- Ligne séparatrice et poignée de glissement -->
+                        <div class="absolute inset-y-0 w-1 bg-brand-yellow slider-handle flex items-center justify-center" id="slider-line" style="left: 50%;">
+                            <div class="w-8 h-8 rounded-full bg-brand-yellow text-black flex items-center justify-center shadow-lg border-2 border-zinc-950 text-xs">
+                                <i class="fa-solid fa-arrows-left-right"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION PORTFOLIO / PROJETS FILTRABLES -->
+    <section id="portfolio" class="py-24 bg-brand-darkBg">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <span class="text-brand-red font-semibold uppercase tracking-wider text-sm block mb-3">Portfolio</span>
+                    <h2 class="font-display font-bold text-3xl md:text-4xl text-white">Mes Concepts & Créations</h2>
+                </div>
+                
+                <!-- Boutons de filtrage en JS -->
+                <div class="flex flex-wrap gap-2 p-1 bg-zinc-900 border border-zinc-800 rounded-xl">
+                    <button onclick="filterProjects('all')" id="filter-all" class="px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-white text-black">Tous</button>
+                    <button onclick="filterProjects('design')" id="filter-design" class="px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-300 text-zinc-400 hover:text-white">Design Graphique</button>
+                    <button onclick="filterProjects('web')" id="filter-web" class="px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-300 text-zinc-400 hover:text-white">Développement Web</button>
+                </div>
+            </div>
+
+            <!-- Grille des projets -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+                
+                <!-- Projet 1: Design -->
+                <div class="project-card design group rounded-2xl bg-brand-darkCard border border-brand-darkBorder overflow-hidden transition-all duration-300 hover:-translate-y-2">
+                    <div class="h-56 overflow-hidden relative">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="http://googleusercontent.com/image_collection/image_retrieval/9763768096110868277_0" alt="Branding & Design Concept Diovani">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 to-transparent opacity-60"></div>
+                        <span class="absolute top-4 left-4 text-xs font-semibold px-3 py-1 bg-brand-blue text-black rounded-full">Identité Visuelle</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display font-semibold text-lg text-white mb-2 group-hover:text-brand-blue transition-colors">Nova - Cosmétiques Naturels</h3>
+                        <p class="text-zinc-400 text-sm mb-4">Création complète de l'identité de marque, mockup de packaging et charte visuelle d'une ligne de soins bio.</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] px-2 py-1 rounded bg-zinc-800 text-zinc-400 font-medium">Adobe Illustrator</span>
+                            <span class="text-[11px] px-2 py-1 rounded bg-zinc-800 text-zinc-400 font-medium">Photoshop</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 2: Web -->
+                <div class="project-card web group rounded-2xl bg-brand-darkCard border border-brand-darkBorder overflow-hidden transition-all duration-300 hover:-translate-y-2">
+                    <div class="h-56 overflow-hidden relative">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="http://googleusercontent.com/image_collection/image_retrieval/4577904987322343576_0" alt="Dashboard Développeur Web">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 to-transparent opacity-60"></div>
+                        <span class="absolute top-4 left-4 text-xs font-semibold px-3 py-1 bg-brand-red text-white rounded-full">SaaS & Code</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display font-semibold text-lg text-white mb-2 group-hover:text-brand-red transition-colors">SaaS Apex Analytics</h3>
+                        <p class="text-zinc-400 text-sm mb-4">Conception de l'interface utilisateur d'un outil de suivi et intégration du tableau de bord interactif en React.</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] px-2 py-1 rounded bg-zinc-800 text-zinc-400 font-medium">ReactJS</span>
+                            <span class="text-[11px] px-2 py-1 rounded bg-zinc-800 text-zinc-400 font-medium">Tailwind CSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 3: Design -->
+                <div class="project-card design group rounded-2xl bg-brand-darkCard border border-brand-darkBorder overflow-hidden transition-all duration-300 hover:-translate-y-2">
+                    <div class="h-56 overflow-hidden relative">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="http://googleusercontent.com/image_collection/image_retrieval/9763768096110868277_1" alt="Mockup minimalist brand identity black">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 to-transparent opacity-60"></div>
+                        <span class="absolute top-4 left-4 text-xs font-semibold px-3 py-1 bg-brand-blue text-black rounded-full">Charte Graphique</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display font-semibold text-lg text-white mb-2 group-hover:text-brand-blue transition-colors">Atelier Noir - Mobilier</h3>
+                        <p class="text-zinc-400 text-sm mb-4">Concept d'identité minimaliste haut de gamme, logotype en silhouette et design des cartes de visite.</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] px-2 py-1 rounded bg-zinc-800 text-zinc-400 font-medium">Figma</span>
+                            <span class="text-[11px] px-2 py-1 rounded bg-zinc-800 text-zinc-400 font-medium">Illustration</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 4: Web -->
+                <div class="project-card web group rounded-2xl bg-brand-darkCard border border-brand-darkBorder overflow-hidden transition-all duration-300 hover:-translate-y-2">
+                    <div class="h-56 overflow-hidden relative">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="http://googleusercontent.com/image_collection/image_retrieval/4577904987322343576_1" alt="Modern web UI portfolio dark template">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 to-transparent opacity-60"></div>
+                        <span class="absolute top-4 left-4 text-xs font-semibold px-3 py-1 bg-brand-red text-white rounded-full">E-commerce</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display font-semibold text-lg text-white mb-2 group-hover:text-brand-red transition-colors">E-Shop Chronos</h3>
+                        <p class="text-zinc-400 text-sm mb-4">Développement complet d'un site e-commerce de montres de luxe avec animations fluides au survol des produits.</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] px-2 py-1 rounded bg-zinc-800 text-zinc-400 font-medium">Vanilla JS</span>
+                            <span class="text-[11px] px-2 py-1 rounded bg-zinc-800 text-zinc-400 font-medium">Tailwind CSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 5: Web -->
+                <div class="project-card web group rounded-2xl bg-brand-darkCard border border-brand-darkBorder overflow-hidden transition-all duration-300 hover:-translate-y-2">
+                    <div class="h-56 overflow-hidden relative">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="http://googleusercontent.com/image_collection/image_retrieval/4577904987322343576_2" alt="Web application dashboard mockup code">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 to-transparent opacity-60"></div>
+                        <span class="absolute top-4 left-4 text-xs font-semibold px-3 py-1 bg-brand-red text-white rounded-full">Intégration</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display font-semibold text-lg text-white mb-2 group-hover:text-brand-red transition-colors">Portfolio d'Architecte</h3>
+                        <p class="text-zinc-400 text-sm mb-4">Intégration HTML/CSS d'une maquette d'agence d'architecture de renom. Focus sur la fluidité des transitions d'images.</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] px-2 py-1 rounded bg-zinc-800 text-zinc-400 font-medium">HTML5</span>
+                            <span class="text-[11px] px-2 py-1 rounded bg-zinc-800 text-zinc-400 font-medium">CSS Grid / Flex</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION RAISONS DU PROFIL HYBRIDE (ARGUMENTATION COMMERCIALE) -->
+    <section class="py-24 bg-zinc-950 border-t border-brand-darkBorder/40">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="font-display font-bold text-3xl md:text-4xl text-white mb-8 leading-tight">Pourquoi choisir un profil hybride "Design & Code" ?</h2>
+                    
+                    <div class="space-y-6">
+                        <!-- Raison 1 -->
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue text-base shrink-0">
+                                <i class="fa-solid fa-arrows-spin"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-semibold text-white text-lg mb-2">Un interlocuteur unique</h4>
+                                <p class="text-zinc-400 text-sm leading-relaxed">
+                                    Fini les mails incessants et les quiproquos entre le graphiste indépendant et la boîte de développement. Je m'occupe de tout pour une fluidité maximale.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Raison 2 -->
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-brand-red/10 flex items-center justify-center text-brand-red text-base shrink-0">
+                                <i class="fa-solid fa-piggy-bank"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-semibold text-white text-lg mb-2">Budget maîtrisé et optimisé</h4>
+                                <p class="text-zinc-400 text-sm leading-relaxed">
+                                    En combinant la direction artistique et l'écriture du code, le coût global de développement de vos projets internet et d'identité se trouve considérablement réduit.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Raison 3 -->
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-brand-yellow/10 flex items-center justify-center text-brand-yellow text-base shrink-0">
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-semibold text-white text-lg mb-2">Respect absolu de la charte</h4>
+                                <p class="text-zinc-400 text-sm leading-relaxed">
+                                    Chaque couleur, chaque espacement, chaque typographie définie au préalable sur Figma est intégrée avec un soin chirurgical et au pixel-près sur votre site en ligne.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chiffre marquant et illustration -->
+                <div class="p-8 rounded-2xl bg-brand-darkCard border border-brand-darkBorder text-center relative overflow-hidden">
+                    <div class="glowing-blob bg-brand-yellow w-48 h-48 top-10 left-10"></div>
+                    <div class="relative z-10 py-10">
+                        <span class="text-[120px] font-display font-black leading-none bg-gradient-to-r from-brand-blue via-brand-red to-brand-yellow bg-clip-text text-transparent block">
+                            100%
+                        </span>
+                        <h3 class="font-display font-bold text-xl text-white mt-4 mb-2">Fidélité au concept visuel</h3>
+                        <p class="text-zinc-400 text-sm max-w-sm mx-auto leading-relaxed">
+                            Le design livré est à 100% semblable à la maquette que vous aurez validée. Pas de surprises, juste de la rigueur.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION CONTACT -->
+    <section id="contact" class="py-24 bg-brand-darkBg relative">
+        <div class="max-w-4xl mx-auto px-6">
+            
+            <div class="text-center mb-16">
+                <span class="text-brand-yellow font-semibold uppercase tracking-wider text-sm block mb-3">Lancez-vous</span>
+                <h2 class="font-display font-bold text-3xl md:text-4xl text-white mb-4">Créons votre projet ensemble</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-brand-yellow to-brand-blue mx-auto rounded-full mb-6"></div>
+                <p class="text-zinc-400 max-w-lg mx-auto">Une question ? Un projet de logo ou de site web ? Parlons-en dès aujourd'hui.</p>
+            </div>
+
+            <!-- Formulaire interactif -->
+            <div class="p-8 md:p-10 rounded-2xl bg-brand-darkCard border border-brand-darkBorder relative z-10 shadow-xl">
+                <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-zinc-300 mb-2">Votre nom</label>
+                            <input required type="text" id="name" class="w-full px-4 py-3 rounded-lg bg-zinc-900 border border-brand-darkBorder text-white placeholder-zinc-600 focus:outline-none focus:border-brand-blue transition-colors" placeholder="Jean Dupont">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-zinc-300 mb-2">Votre email</label>
+                            <input required type="email" id="email" class="w-full px-4 py-3 rounded-lg bg-zinc-900 border border-brand-darkBorder text-white placeholder-zinc-600 focus:outline-none focus:border-brand-blue transition-colors" placeholder="jean@exemple.com">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="project-type" class="block text-sm font-medium text-zinc-300 mb-2">Type de projet</label>
+                        <select id="project-type" class="w-full px-4 py-3 rounded-lg bg-zinc-900 border border-brand-darkBorder text-white focus:outline-none focus:border-brand-blue transition-colors">
+                            <option value="both">Projet Complet (Design + Code)</option>
+                            <option value="branding">Logo & Identité Visuelle</option>
+                            <option value="web">Création de Site Web</option>
+                            <option value="other">Autre demande</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-zinc-300 mb-2">Parlez-moi de votre besoin</label>
+                        <textarea required id="message" rows="5" class="w-full px-4 py-3 rounded-lg bg-zinc-900 border border-brand-darkBorder text-white placeholder-zinc-600 focus:outline-none focus:border-brand-blue transition-colors" placeholder="Décrivez votre entreprise et vos attentes..."></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 rounded-lg bg-white text-black font-semibold hover:bg-brand-blue hover:text-white transition-all duration-300 flex items-center justify-center gap-2">
+                        Envoyer le message <i class="fa-solid fa-paper-plane text-xs"></i>
+                    </button>
+                </form>
+
+                <!-- Message de succès masqué initialement -->
+                <div id="success-msg" class="hidden text-center py-10">
+                    <div class="w-16 h-16 bg-brand-blue/10 rounded-full flex items-center justify-center text-brand-blue text-3xl mx-auto mb-6">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-2xl text-white mb-2">Message envoyé avec succès !</h3>
+                    <p class="text-zinc-400 max-w-sm mx-auto mb-6">Merci pour votre intérêt. Je reviendrai vers vous sous 24 à 48 heures pour organiser un premier appel.</p>
+                    <button onclick="resetContactForm()" class="px-6 py-2.5 rounded-lg bg-zinc-900 border border-zinc-800 text-sm font-medium text-zinc-300 hover:text-white transition-colors">Envoyer un autre message</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PIED DE PAGE -->
+    <footer class="bg-zinc-950 py-12 border-t border-brand-darkBorder/40">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-center">
+            
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 relative flex items-center justify-center bg-zinc-900 rounded-lg border border-zinc-800">
+                    <!-- SVG mini logo -->
+                    <svg viewBox="0 0 100 100" class="w-6 h-6">
+                        <path d="M20,25 C45,25 45,75 20,75 Z" fill="none" stroke="#009deb" stroke-width="12" stroke-linecap="round"/>
+                        <path d="M55,25 L70,75 L85,25" fill="none" stroke="#e30613" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M45,45 L55,45 L50,60 Z" fill="#fff100"/>
+                    </svg>
+                </div>
+                <span class="font-display font-bold text-white tracking-wide">DIOVANI STUDIO</span>
+            </div>
+
+            <p class="text-sm text-zinc-500">
+                &copy; <span id="current-year">2026</span> DIOVANI STUDIO. Tous droits réservés.
+            </p>
+
+            <div class="flex gap-4">
+                <a href="#" class="text-zinc-500 hover:text-white transition-colors text-lg"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" class="text-zinc-500 hover:text-white transition-colors text-lg"><i class="fa-brands fa-figma"></i></a>
+                <a href="#" class="text-zinc-500 hover:text-white transition-colors text-lg"><i class="fa-brands fa-github"></i></a>
+                <a href="#" class="text-zinc-500 hover:text-white transition-colors text-lg"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- LOGIQUE INTERACTIVE JAVASCRIPT -->
+    <script>
+        // Mettre à jour automatiquement l'année de copyright
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Gestion du Menu Mobile
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Masquer le menu mobile lors d'un clic sur un lien
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // --- Comparateur Figma vs Code (Slider Interactif) ---
+        const sliderContainer = document.getElementById('slider-container');
+        const designLayer = document.getElementById('design-layer');
+        const sliderLine = document.getElementById('slider-line');
+
+        function moveSlider(x) {
+            const containerRect = sliderContainer.getBoundingClientRect();
+            let position = ((x - containerRect.left) / containerRect.width) * 100;
+            
+            // Verrous pour ne pas dépasser les limites
+            if (position < 0) position = 0;
+            if (position > 100) position = 100;
+
+            // Appliquer le clip-path et la position de la ligne
+            designLayer.style.clipPath = `inset(0 0 0 ${position}%)`;
+            sliderLine.style.left = `${position}%`;
+        }
+
+        // Événements pour la souris
+        let isDragging = false;
+        
+        sliderLine.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            e.preventDefault();
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            moveSlider(e.clientX);
+        });
+
+        // Prise en charge des écrans tactiles mobiles
+        sliderLine.addEventListener('touchstart', (e) => {
+            isDragging = true;
+        });
+
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            if (e.touches.length > 0) {
+                moveSlider(e.touches[0].clientX);
+            }
+        });
+
+
+        // --- Système de Filtrage Dynamique du Portfolio ---
+        function filterProjects(category) {
+            const cards = document.querySelectorAll('.project-card');
+            
+            // Gérer l'état actif des boutons
+            const btnAll = document.getElementById('filter-all');
+            const btnDesign = document.getElementById('filter-design');
+            const btnWeb = document.getElementById('filter-web');
+
+            // Réinitialiser les classes actives de tous les boutons
+            [btnAll, btnDesign, btnWeb].forEach(btn => {
+                btn.className = "px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-300 text-zinc-400 hover:text-white";
+            });
+
+            // Assigner le style actif au bon bouton
+            if (category === 'all') btnAll.className = "px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-white text-black";
+            if (category === 'design') btnDesign.className = "px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-white text-black";
+            if (category === 'web') btnWeb.className = "px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-white text-black";
+
+            // Filtrer les cartes
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.classList.remove('hidden');
+                } else if (card.classList.contains(category)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+
+        // --- Formulaire de Contact Interactif ---
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            
+            // Masquer le formulaire et afficher le message de réussite
+            const form = document.getElementById('contact-form');
+            const successMsg = document.getElementById('success-msg');
+            
+            form.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+        }
+
+        function resetContactForm() {
+            const form = document.getElementById('contact-form');
+            const successMsg = document.getElementById('success-msg');
+            
+            form.reset();
+            form.classList.remove('hidden');
+            successMsg.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
+```eof
+
+Votre site web portfolio complet et interactif pour **DIOVANI STUDIO** est prêt à être partagé avec vos clients !
+
+### Synthèse des fonctionnalités clés créées :
+1. **Module Interactif "Figma vs Code" (Drag Slider) :** Vos visiteurs peuvent directement comparer l'exactitude graphique d'un wireframe Figma par rapport à son intégration propre en HTML/CSS, prouvant instantanément votre profil "Pixel-Perfect".
+2. **Système de filtre par catégorie :** Permet d'isoler rapidement les projets de *Branding/Design* et vos travaux de *Développement Web*.
+3. **Formulaire de contact dynamique :** Entièrement fonctionnel côté interface, simulant un envoi de mail propre avec validation visuelle instantanée en JavaScript.
+4. **Charte graphique respectée :** Fond sombre ultra-moderne, contrastes optimisés avec vos couleurs d'entreprise : Bleu (`#009deb`), Rouge (`#e30613`) et Jaune (`#fff100`).
+
+Vous n'avez qu'à ouvrir ce fichier `.html` dans n'importe quel navigateur pour le tester. Il est prêt à être hébergé gratuitement sur Netlify, Vercel ou GitHub Pages ! N'hésitez pas à me dire si vous souhaitez affiner des textes ou ajouter des options.
